@@ -1,0 +1,44 @@
+##=============================================
+##  Launch clock edge MAX/MIN:
+##
+##=============================================
+## T4_rr: Rising edge of 'nor_scan_ck' -> Rising edge of 'ser_clk'
+Min: Hold :  Rising_edge_nor_scan_ck > Rising_edge_ser_clk + required + capture_clk_root_delay - arrival - launch_clk_root_delay
+Max: Setup:  Rising_edge_nor_scan_ck < Rising_edge_ser_clk + required + capture_clk_root_delay - arrival - launch_clk_root_delay + ${ser_len}*T
+
+## T7_ff: Falling edge of 'pipehead_ck' -> Falling edge of 'ser_clk'
+Min: Hold : falling_edge_pipehead_ck > falling_edge_ser_clk + required + capture_clk_root_delay - arrival - launch_clk_root_delay
+Max: Setup: falling_edge_pipehead_ck < falling_edge_ser_clk + required + capture_clk_root_delay - arrival - launch_clk_root_delay + T
+
+
+##=============================================
+##  Capture clock edge MAX/MIN:
+##
+##=============================================
+## T8_rr: Rising edge of 'ser_clk' -> Rising edge of 'pipetail_ck'
+Min: Setup: Rising_edge_pipetail_ck > Rising_edge_ser_clk + arrival + launch_clk_root_delay - required - capture_clk_root_delay - T
+Max: Hold : Rising_edge_pipetail_ck < Rising_edge_ser_clk + arrival + launch_clk_root_delay - required - capture_clk_root_delay
+
+## T5 : Falling edge of 'upd_clk' -> Rising edge of 'nor_scan_ck'
+Min: Setup: Rising_edge_nor_scan_ck > Falling_edge_upd_clk + arrival + launch_clk_root_delay - required - capture_clk_root_delay - ${ser_len}*T
+Max: Hold : Rising_edge_nor_scan_ck < Falling_edge_upd_clk + arrival + launch_clk_root_delay - required - capture_clk_root_delay
+
+## T16 : Falling edge of 'src_ser_clk' -> Rising edge of 'src_nor_scan_ck'
+Min: Setup: Rising_edge_src_nor_scan_ck > Falling_edge_src_ser_clk + arrival + launch_clk_root_delay - required - capture_clk_root_delay - T
+Max: Hold : Rising_edge_src_nor_scan_ck < Falling_edge_src_ser_clk + arrival + launch_clk_root_delay - required - capture_clk_root_delay
+
+## T4_ff: Falling edge of 'upd_clk' -> Falling edge of 'nor_scan_ck'
+Min: Setup: Falling_edge_nor_scan_ck > Falling_edge_upd_clk + arrival + launch_clk_root_delay - required - capture_clk_root_delay - ${ser_len}*T
+Max: Hold : Falling_edge_nor_scan_ck < Falling_edge_upd_clk + arrival + launch_clk_root_delay - required - capture_clk_root_delay
+
+
+
+## Falling edge of 'upd_clk' -> falling edge of 'nor_scan_ck'
+Setup: Falling_edge_upd_clk + arrival + launch_clk_root_delay < Falling_edge_nor_scan_ck + required + capture_clk_root_delay + ${ser_len}*T
+Hold : Falling_edge_upd_clk + arrival + launch_clk_root_delay > Falling_edge_nor_scan_ck + required + capture_clk_root_delay
+
+## Falling edge of 'nor_scan_ck' -> rising edge of 'ser_clk'
+Setup: Falling_edge_nor_scan_ck + arrival + launch_clk_root_delay < Rising_edge_ser_clk + required + capture_clk_root_delay + ${ser_len}*T
+Hold : Falling_edge_nor_scan_ck + arrival + launch_clk_root_delay > Rising_edge_ser_clk + required + capture_clk_root_delay
+
+
